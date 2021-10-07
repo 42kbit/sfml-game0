@@ -6,6 +6,12 @@ project(${PROJECT_NAME})
 
 add_executable(${PROJECT_NAME} 
 src/main.cpp
+src/Components/Renderable.cpp
+src/Components/Updatable.cpp
+src/Buffers/Buffer.cpp
+src/Buffers/RenderBuffer.cpp
+src/Buffers/UpdatableBuffer.cpp
+src/Global/Configuration.cpp
 )
 
 add_subdirectory(external/sfml)
