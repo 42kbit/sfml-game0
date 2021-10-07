@@ -1,5 +1,9 @@
 #include "SFML/Graphics.hpp"
 #include "Global/Configuration.h"
+#include "Entities/Player.h"
+
+#include "Buffers/RenderBuffer.h"
+#include "Buffers/UpdatableBuffer.h"
 
 #include <iostream>
 
@@ -7,32 +11,30 @@ int main()
 {
     sf::Clock deltaTimer;
 
-    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
+    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!");
     sf::Event event;
-
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
 
     Configuration::window = &window;
     Configuration::event = &event;
 
-    window.setVerticalSyncEnabled(1);
+    Player player(sf::Vector2f(window.getSize() / 2U), 30.f);
+
 
     while (window.isOpen())
     {
-        std::cout << "DeltaTime: " << Configuration::get_deltaTime() << std::endl;
-        
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
                 window.close();
         }
 
-        Configuration::dt_clock.restart();
+        UpdatableBuffer::execute();
 
         window.clear();
-        window.draw(shape);
+        RenderBuffer::execute();
         window.display();
+
+        Configuration::dt_clock.restart();
     }
 
     return 0;

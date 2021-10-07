@@ -15,8 +15,8 @@ sf::Event* Configuration::get_event()
     return event;
 }
 
-double Configuration::get_deltaTime()
+sf::Int32 Configuration::get_deltaTime()
 {
-    return dt_clock.getElapsedTime().asMilliseconds();
+    return dt_clock.getElapsedTime().asMicroseconds();
 }
 

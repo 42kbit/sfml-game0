@@ -6,7 +6,7 @@ public:
 	static sf::RenderWindow* get_renderWin();
 
 	static sf::Event* get_event();
-	static double get_deltaTime();
+	static sf::Int32 get_deltaTime();
 
 	friend int main(void);
 private:
