@@ -6,6 +6,8 @@ Player::Player(sf::Vector2f pos, float radius) : Entity(pos), m_GFX(new sf::Circ
 {
 	m_GFX->setRadius(radius);
 	m_GFX->setOrigin(radius / 2.f, radius / 2.f);
+	m_GFX->setOutlineThickness(1.f);
+	m_GFX->setOutlineColor(sf::Color::Yellow);
 }
 
 Player::~Player()
@@ -15,9 +17,31 @@ Player::~Player()
 
 void Player::on_update()
 {
+	auto nextPos = m_Position + m_Velocity;
+	if (nextPos.x < 0 || nextPos.x > Configuration::get_renderWin()->getSize().x)
+		m_Velocity = sf::Vector2f(-m_Velocity.x, m_Velocity.y);
+	if (nextPos.y < 0 || nextPos.y > Configuration::get_renderWin()->getSize().y)
+		m_Velocity = sf::Vector2f(m_Velocity.x, -m_Velocity.y);
+
 	m_Position += m_Velocity;
+	m_Velocity *= friction;
 
 	m_GFX->setPosition(m_Position);
+}
+
+void Player::on_event_poll(sf::Event& ev)
+{
+	if (ev.type == sf::Event::MouseButtonPressed && ev.mouseButton.button == sf::Mouse::Left)
+	{
+		m_RelativePos = sf::Vector2f(sf::Mouse::getPosition(*Configuration::get_renderWin()));
+	}
+
+	if (ev.type == sf::Event::MouseButtonReleased && ev.mouseButton.button == sf::Mouse::Left)
+	{
+		sf::Vector2f unNormalizedDir = -(sf::Vector2f(sf::Mouse::getPosition(*Configuration::get_renderWin())) - m_RelativePos);
+
+		m_Velocity += unNormalizedDir * m_Force;
+	}
 }
 
 void Player::on_render(sf::RenderTarget& win)

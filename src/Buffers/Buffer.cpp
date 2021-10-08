@@ -1,11 +1,13 @@
 #include "Buffer.h"
 #include "../Components/Updatable.h"
 #include "../Components/Renderable.h"
+#include "../Components/Eventable.h"
 
 #include "../Global/Configuration.h"
 
 template class Buffer<Updatable>;
 template class Buffer<Renderable>;
+template class Buffer<Eventable>;
 
 template<typename T>
 std::vector<T*> Buffer<T>::subscribers;
@@ -50,5 +52,14 @@ void Buffer<Renderable>::execute()
 	for (unsigned int i = 0; i < subscribers.size(); i++)
 	{
 		subscribers[i]->on_render(*Configuration::get_renderWin());
+	}
+}
+
+template<>
+void Buffer<Eventable>::execute()
+{
+	for (unsigned int i = 0; i < subscribers.size(); i++)
+	{
+		subscribers[i]->on_event_poll(*Configuration::get_event());
 	}
 }

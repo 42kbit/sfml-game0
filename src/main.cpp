@@ -4,6 +4,7 @@
 
 #include "Buffers/RenderBuffer.h"
 #include "Buffers/UpdatableBuffer.h"
+#include "Buffers/EventableBuffer.h"
 
 #include <iostream>
 
@@ -17,13 +18,15 @@ int main()
     Configuration::window = &window;
     Configuration::event = &event;
 
-    Player player(sf::Vector2f(window.getSize() / 2U), 30.f);
+    Player player(sf::Vector2f(window.getSize() / 2U), 10.f);
 
+    window.setVerticalSyncEnabled(1);
 
     while (window.isOpen())
     {
         while (window.pollEvent(event))
         {
+            EventableBuffer::execute();
             if (event.type == sf::Event::Closed)
                 window.close();
         }

@@ -8,10 +8,12 @@ add_executable(${PROJECT_NAME}
 src/main.cpp
 src/Components/Renderable.cpp
 src/Components/Updatable.cpp
+src/Components/Eventable.cpp
 
 src/Buffers/Buffer.cpp
 src/Buffers/RenderBuffer.cpp
 src/Buffers/UpdatableBuffer.cpp
+src/Buffers/EventableBuffer.cpp
 
 src/Global/Configuration.cpp
 
