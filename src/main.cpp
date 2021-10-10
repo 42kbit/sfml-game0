@@ -6,6 +6,8 @@
 #include "Buffers/UpdatableBuffer.h"
 #include "Buffers/EventableBuffer.h"
 
+#include "World/World.h"
+
 #include <iostream>
 
 int main()
@@ -17,7 +19,8 @@ int main()
 
     Configuration::window = &window;
     Configuration::event = &event;
-
+    
+    World world;
     Player player(sf::Vector2f(window.getSize() / 2U), 10.f);
 
     window.setVerticalSyncEnabled(1);

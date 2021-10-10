@@ -4,6 +4,7 @@
 
 Player::Player(sf::Vector2f pos, float radius) : Entity(pos), m_GFX(new sf::CircleShape)
 {
+	m_GFX->setFillColor(sf::Color::Red);
 	m_GFX->setRadius(radius);
 	m_GFX->setOrigin(radius / 2.f, radius / 2.f);
 	m_GFX->setOutlineThickness(1.f);

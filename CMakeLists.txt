@@ -18,6 +18,8 @@ src/Buffers/EventableBuffer.cpp
 src/Global/Configuration.cpp
 
 src/Entities/Player.cpp
+
+src/World/World.cpp
 )
 
 add_subdirectory(external/sfml)
