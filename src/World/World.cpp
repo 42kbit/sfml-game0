@@ -1,7 +1,10 @@
 #include "World.h"
 #include "../Global/Configuration.h"
+#include <random>
 World::World()
 {
+    m_TileIDMap.emplace(GRASS_ID, "res/textures/grass.png");
+    m_TileIDMap.emplace(WALL_ID, "res/textures/stone.png");
 
     m_TileMap = new Tile*[WORLD_SIZE_X];
     for (uint32_t i = 0; i < WORLD_SIZE_X; i++)
@@ -11,6 +14,8 @@ World::World()
     for(uint32_t i = 0; i < WORLD_SIZE_X; i++)
         for(uint32_t j = 0; j < WORLD_SIZE_Y; j++)
         {
+            m_TileMap[i][j].setTileType( m_TileIDMap.find(rand()%4 == 0? WALL_ID:GRASS_ID)->second );
+
             m_TileMap[i][j].getGFX().setSize({
             Configuration::get_renderWin()->getSize().x * 1.0f / WORLD_SIZE_X, 
             Configuration::get_renderWin()->getSize().y * 1.0f / WORLD_SIZE_Y

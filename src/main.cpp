@@ -14,13 +14,13 @@ int main()
 {
     sf::Clock deltaTimer;
 
-    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!");
+    sf::RenderWindow window(sf::VideoMode(800, 800), "SFML works!");
     sf::Event event;
 
-    Configuration::window = &window;
-    Configuration::event = &event;
+    Configuration::m_Window = &window;
+    Configuration::m_Event = &event;
+    Configuration::m_World = new World();
     
-    World world;
     Player player(sf::Vector2f(window.getSize() / 2U), 10.f);
 
     window.setVerticalSyncEnabled(1);
@@ -40,7 +40,7 @@ int main()
         RenderBuffer::execute();
         window.display();
 
-        Configuration::dt_clock.restart();
+        Configuration::m_Dtclock.restart();
     }
 
     return 0;
